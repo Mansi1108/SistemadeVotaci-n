@@ -20,6 +20,34 @@ namespace API_Votos.Controllers
             _context = new();
         }
 
+        // GET: api/Fases
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Fase>>> GetFases()
+        {
+          if (_context.Fases == null)
+          {
+              return NotFound();
+          }
+            return await _context.Fases.ToListAsync();
+        }
+
+        // GET: api/Fases/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Fase>> GetFase(string id)
+        {
+          if (_context.Fases == null)
+          {
+              return NotFound();
+          }
+            var fase = await _context.Fases.FindAsync(id);
+
+            if (fase == null)
+            {
+                return NotFound();
+            }
+
+            return fase;
+        }
 
         // PUT: api/Fases/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -51,36 +79,6 @@ namespace API_Votos.Controllers
 
             return NoContent();
         }
-
-        // POST: api/Fases
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Fase>> PostFase(Fase fase)
-        {
-          if (_context.Fases == null)
-          {
-              return Problem("Entity set 'VotosContext.Fases'  is null.");
-          }
-            _context.Fases.Add(fase);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (FaseExists(fase.Nombre))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetFase", new { id = fase.Nombre }, fase);
-        }
-
 
         private bool FaseExists(string id)
         {

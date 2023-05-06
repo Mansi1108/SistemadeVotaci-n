@@ -43,10 +43,12 @@ namespace SistemadeVotación.Controllers
         {
             Models.VotosContext _context = new();
             bool existe = VotospExists(votosp.NoDpi);
-            bool active = (_context.Fases?.Any(e => e.Nombre == "crearCandidatos")).GetValueOrDefault();
+            //bool active = (_context.Fases?.Any(e => e.Nombre == "votacion")).GetValueOrDefault();
+            var fase = await _services.GetFase<Models.Fase>("votacion");
+            int active2 = fase.Activo;
             if (!existe)
             {
-                if (active)
+                if (active2 == 1)
                 {
                     await _services.Post(votosp);
                     ViewData["IdCandidato"] = new SelectList(_context.CandidatosPresidenciales, "Id", "NombreCompleto", votosp.IdCandidato);

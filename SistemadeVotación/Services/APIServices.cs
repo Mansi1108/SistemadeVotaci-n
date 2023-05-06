@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Policy;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace SistemadeVotación.Services
 {
@@ -12,6 +13,7 @@ namespace SistemadeVotación.Services
     {
         private readonly int Timeout = 30;
         private string Url = default!;
+        private string urlfase = "https://localhost:7001/api/Fases";
         private readonly HttpStatusCode[] ErrorCodes = new[] { HttpStatusCode.BadRequest, HttpStatusCode.InternalServerError };
 
         public APIServices SetModule(string controllerName)
@@ -32,6 +34,25 @@ namespace SistemadeVotación.Services
             };
 
             var response = await httpClient.GetAsync(Url + path);
+            if (ErrorCodes.Contains(response.StatusCode))
+            {
+                throw new Exception(response.StatusCode.ToString());
+            }
+            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+        }
+
+        public async Task<T?> GetFase<T>(string id, string path = "")
+        {
+            HttpClientHandler clientHandler = new()
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+            };
+            HttpClient httpClient = new(clientHandler)
+            {
+                Timeout = TimeSpan.FromSeconds(Timeout)
+            };
+
+            var response = await httpClient.GetAsync(urlfase + id);
             if (ErrorCodes.Contains(response.StatusCode))
             {
                 throw new Exception(response.StatusCode.ToString());

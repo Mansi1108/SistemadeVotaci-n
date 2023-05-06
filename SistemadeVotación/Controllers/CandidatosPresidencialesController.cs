@@ -23,8 +23,10 @@ namespace SistemadeVotación.Controllers
         public async Task<IActionResult> Index()
         {
             Models.VotosContext _context = new();
-            bool active = (_context.Fases?.Any(e => e.Nombre == "crearCandidatos")).GetValueOrDefault();
-            if (active)
+            var fase = await _services.GetFase<Models.Fase>("crearCandidatos");
+            int active2 = fase.Activo;
+            //bool active = (_context.Fases?.Any(e => e.Nombre == "crearCandidatos")).GetValueOrDefault();
+            if (active2 == 1)
             {
                 var votos = await _services.Get<IEnumerable<Models.CandidatosPresidenciale>>();
                 TempData["EstaActivo"] = "Si";
