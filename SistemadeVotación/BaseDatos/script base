@@ -1,0 +1,32 @@
+use votos;
+CREATE TABLE candidatos_presidenciales (
+  id INT NOT NULL AUTO_INCREMENT,
+  nombre_completo VARCHAR(100) NOT NULL,
+  no_dpi VARCHAR(15) NOT NULL,
+  edad INT NOT NULL,
+  nacionalidad VARCHAR(100) NOT NULL,
+  departamento_nacimiento VARCHAR(100) NOT NULL,
+  partido_politico VARCHAR(50) NOT NULL,
+  foto_url VARCHAR(200) NOT NULL,
+  fecha_ingreso_partido TIMESTAMP NOT NULL,
+  fecha_registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE votosP (
+  id INT NOT NULL AUTO_INCREMENT,
+  id_candidato INT NOT NULL,
+  no_dpi VARCHAR(15) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE userlog (
+  id INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(100) NOT NULL,
+  rol INT NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE votosP
+ADD FOREIGN KEY (id_candidato) REFERENCES candidatos_presidenciales(id);

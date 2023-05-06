@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SistemadeVotación.Models.Votosp>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Votaciones</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NoDpi)
+            </th>
+            <th>
+                <span>Voto para</span>
+            </th>
+            <th>
+                <span>Partido Politico</span>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoDpi)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.IdCandidatoNavigation.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCandidatoNavigation.PartidoPolitico)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,69 @@
+﻿@model SistemadeVotación.Models.CandidatosPresidenciale
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Candidato</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mt-2">
+                <label asp-for="NombreCompleto" class="control-label">Nombre Completo</label>
+                <input asp-for="NombreCompleto" class="form-control" />
+                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="NoDpi" class="control-label">No. DPI</label>
+                <input asp-for="NoDpi" class="form-control" />
+                <span asp-validation-for="NoDpi" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Edad" class="control-label"></label>
+                <input asp-for="Edad" class="form-control" />
+                <span asp-validation-for="Edad" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Nacionalidad" class="control-label"></label>
+                <input asp-for="Nacionalidad" class="form-control" />
+                <span asp-validation-for="Nacionalidad" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="DepartamentoNacimiento" class="control-label">Departamento Nacimiento</label>
+                <input asp-for="DepartamentoNacimiento" class="form-control" />
+                <span asp-validation-for="DepartamentoNacimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="PartidoPolitico" class="control-label">Partido Politico</label>
+                <input asp-for="PartidoPolitico" class="form-control" />
+                <span asp-validation-for="PartidoPolitico" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="FotoUrl" class="control-label">Foto</label>
+                <input asp-for="FotoUrl" class="form-control" />
+                <span asp-validation-for="FotoUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="FechaIngresoPartido" class="control-label">Fecha Ingreso Partido</label>
+                <input asp-for="FechaIngresoPartido" class="form-control" />
+                <span asp-validation-for="FechaIngresoPartido" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
