@@ -5,10 +5,14 @@
 }
 
 <h1>Candidatos Presidenciales</h1>
+@if (TempData["EstaActivo"] != null)
+{
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </p>
+}
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr class="text-center">

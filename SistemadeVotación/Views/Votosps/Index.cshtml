@@ -5,10 +5,12 @@
 }
 
 <h1>Votaciones</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (TempData["EstaActivo"] != null)
+{
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table text-center">
     <thead>
         <tr>

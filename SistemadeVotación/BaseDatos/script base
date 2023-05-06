@@ -30,3 +30,9 @@ CREATE TABLE userlog (
 
 ALTER TABLE votosP
 ADD FOREIGN KEY (id_candidato) REFERENCES candidatos_presidenciales(id);
+
+CREATE TABLE fases (
+  nombre VARCHAR(100) NOT NULL,
+  activo boolean NOT NULL,
+  PRIMARY KEY (nombre)
+);

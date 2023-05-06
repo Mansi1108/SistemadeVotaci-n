@@ -22,8 +22,21 @@ namespace SistemadeVotación.Controllers
         // GET: CandidatosPresidenciales
         public async Task<IActionResult> Index()
         {
-            var votos = await _services.Get<IEnumerable<Models.CandidatosPresidenciale>>();
-            return votos != null ? View(votos) : RedirectToAction("Index");
+            Models.VotosContext _context = new();
+            bool active = (_context.Fases?.Any(e => e.Nombre == "crearCandidatos")).GetValueOrDefault();
+            if (active)
+            {
+                var votos = await _services.Get<IEnumerable<Models.CandidatosPresidenciale>>();
+                TempData["EstaActivo"] = "Si";
+                return votos != null ? View(votos) : RedirectToAction("Index");
+
+            }
+            else
+            {
+                TempData["EstaActivo"] = null;
+                return RedirectToAction("Index");
+            }
+            
         }
 
 
